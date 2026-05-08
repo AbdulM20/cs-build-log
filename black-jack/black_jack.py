@@ -24,7 +24,7 @@ def value_of_card(card):
     else:
         return int(card)
 
-    pass
+
 
 
 def higher_card(card_one, card_two):
@@ -46,7 +46,7 @@ def higher_card(card_one, card_two):
     else:
         return (card_one,card_two)
 
-    pass
+
 
 
 def value_of_ace(card_one, card_two):
@@ -70,7 +70,7 @@ def value_of_ace(card_one, card_two):
     value_one = 11 if card_one == 'A' else value_of_card(card_one)
     value_two = 11 if card_two == 'A' else value_of_card(card_two)
 
-    if value_one + value_two <= 9:
+    if value_one + value_two <= 10:
        return 11
     else:
         return 1
@@ -97,7 +97,7 @@ def is_blackjack(card_one, card_two):
     return value_one + value_two == 21
 
 
-    pass
+
 
 
 def can_split_pairs(card_one, card_two):
@@ -106,8 +106,12 @@ def can_split_pairs(card_one, card_two):
     :param card_one, card_two: str - cards dealt.
     :return: bool - can the hand be split into two pairs? (i.e. cards are of the same value).
     """
+    # Need to determine if a hand can be split
+    # if the cards are the same value then the cards can be split
+    # can use value_of_card function here and return a bool if values equal
 
-    pass
+    return  value_of_card(card_one) == value_of_card(card_two)
+
 
 
 def can_double_down(card_one, card_two):
@@ -117,4 +121,27 @@ def can_double_down(card_one, card_two):
     :return: bool - can the hand can be doubled down? (i.e. totals 9, 10 or 11 points).
     """
 
-    pass
+    # add the two values and if the sum is in (9,10,11) then allow for double down
+
+    return value_of_card(card_one) + value_of_card(card_two) in (9, 10, 11)
+
+
+
+''' While Running the experiments I found two errors that broke the logic 
+    1. The highest card that can return an 11 should've been 10 not 9 
+    2. There was initially an override logic in can_double_down where ace was an 11 
+    this was incorrect as that caused failing cases : ('A','9') -- in blackjack this would be a 9 or 19 
+    where the 9 should be able to be double downed on but with the override case the value becomes a fixed 19 which 
+    is not a value in (9,10,11)
+    it is to be noted that this exercise had it's on tweaks to the way black jack is played maybe to simplify the coding 
+    experience 
+    
+    overall learning outcomes were:
+    - Computational thinking 
+    - Bool logic 
+    - Comparison logic 
+    - Conditional logic 
+    - Making sure to understand what the Code requires not what the game is 
+    
+
+'''
